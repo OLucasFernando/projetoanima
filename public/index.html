@@ -1,0 +1,790 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Escala Likert - Avaliação Psicológica</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #f5f5f5; padding: 20px; max-width: 800px; margin: auto; }
+    .page { display: none; background: #fff; padding: 20px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    .page.active { display: block; }
+    .question { margin-bottom: 20px; }
+    .likert-scale { display: flex; justify-content: space-between; margin-top: 10px; }
+    .likert-scale label { width: 18%; text-align: center; }
+    button { padding: 10px 20px; margin: 10px 5px; background-color: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    button:hover { background-color: #2980b9; }
+    .navigation { text-align: center; margin-top: 20px; }
+    .progress-container { background-color: #ddd; border-radius: 20px; overflow: hidden; margin: 20px 0; }
+    .progress-bar { height: 20px; width: 0%; background-color: #4CAF50; transition: width 0.3s; }
+  </style>
+</head>
+<body>
+  <h1>Avaliação Psicológica</h1>
+  <p>Responda cada afirmação usando a escala de 1 (Discordo totalmente) a 5 (Concordo totalmente).</p>
+  <div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+  <form id="surveyForm">
+<div class="page active" data-page="1">
+<h2>1. Autodúvida e Insegurança</h2>
+<div class="question"><p>1. Mesmo quando me saio bem, sinto que não mereço o reconhecimento.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q1" value="1" required> 1</label>
+<label><input type="radio" name="q1" value="2" required> 2</label>
+<label><input type="radio" name="q1" value="3" required> 3</label>
+<label><input type="radio" name="q1" value="4" required> 4</label>
+<label><input type="radio" name="q1" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>2. Tenho medo de que os outros descubram que não sou tão competente quanto pensam.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q2" value="1" required> 1</label>
+<label><input type="radio" name="q2" value="2" required> 2</label>
+<label><input type="radio" name="q2" value="3" required> 3</label>
+<label><input type="radio" name="q2" value="4" required> 4</label>
+<label><input type="radio" name="q2" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>3. Frequentemente me sinto inadequado(a), mesmo quando recebo elogios.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q3" value="1" required> 1</label>
+<label><input type="radio" name="q3" value="2" required> 2</label>
+<label><input type="radio" name="q3" value="3" required> 3</label>
+<label><input type="radio" name="q3" value="4" required> 4</label>
+<label><input type="radio" name="q3" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>4. Acredito que meu sucesso é resultado de sorte ou timing, não da minha habilidade.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q4" value="1" required> 1</label>
+<label><input type="radio" name="q4" value="2" required> 2</label>
+<label><input type="radio" name="q4" value="3" required> 3</label>
+<label><input type="radio" name="q4" value="4" required> 4</label>
+<label><input type="radio" name="q4" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>5. Quando cometo um erro, sinto que confirma que sou uma fraude.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q5" value="1" required> 1</label>
+<label><input type="radio" name="q5" value="2" required> 2</label>
+<label><input type="radio" name="q5" value="3" required> 3</label>
+<label><input type="radio" name="q5" value="4" required> 4</label>
+<label><input type="radio" name="q5" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>6. Comparo-me constantemente com outras pessoas e me sinto inferior.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q6" value="1" required> 1</label>
+<label><input type="radio" name="q6" value="2" required> 2</label>
+<label><input type="radio" name="q6" value="3" required> 3</label>
+<label><input type="radio" name="q6" value="4" required> 4</label>
+<label><input type="radio" name="q6" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>7. Tenho dificuldade em aceitar feedback positivo porque não acredito nele.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q7" value="1" required> 1</label>
+<label><input type="radio" name="q7" value="2" required> 2</label>
+<label><input type="radio" name="q7" value="3" required> 3</label>
+<label><input type="radio" name="q7" value="4" required> 4</label>
+<label><input type="radio" name="q7" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>8. Sinto que preciso trabalhar muito mais do que os outros para compensar minha falta de talento.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q8" value="1" required> 1</label>
+<label><input type="radio" name="q8" value="2" required> 2</label>
+<label><input type="radio" name="q8" value="3" required> 3</label>
+<label><input type="radio" name="q8" value="4" required> 4</label>
+<label><input type="radio" name="q8" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>9. Quando alguém me elogia, fico desconfortável e penso que estão sendo gentis, não sinceros.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q9" value="1" required> 1</label>
+<label><input type="radio" name="q9" value="2" required> 2</label>
+<label><input type="radio" name="q9" value="3" required> 3</label>
+<label><input type="radio" name="q9" value="4" required> 4</label>
+<label><input type="radio" name="q9" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>10. Mesmo após conquistas, sinto que não sou bom o suficiente.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q10" value="1" required> 1</label>
+<label><input type="radio" name="q10" value="2" required> 2</label>
+<label><input type="radio" name="q10" value="3" required> 3</label>
+<label><input type="radio" name="q10" value="4" required> 4</label>
+<label><input type="radio" name="q10" value="5" required> 5</label>
+</div></div>
+</div>
+<div class="page" data-page="2">
+<h2>2. Medo do Fracasso e Perfeccionismo</h2>
+<div class="question"><p>11. Se não faço algo perfeitamente, sinto que falhei completamente.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q11" value="1" required> 1</label>
+<label><input type="radio" name="q11" value="2" required> 2</label>
+<label><input type="radio" name="q11" value="3" required> 3</label>
+<label><input type="radio" name="q11" value="4" required> 4</label>
+<label><input type="radio" name="q11" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>12. Adio tarefas por medo de não atender às expectativas.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q12" value="1" required> 1</label>
+<label><input type="radio" name="q12" value="2" required> 2</label>
+<label><input type="radio" name="q12" value="3" required> 3</label>
+<label><input type="radio" name="q12" value="4" required> 4</label>
+<label><input type="radio" name="q12" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>13. Me cobro excessivamente para evitar qualquer possibilidade de erro.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q13" value="1" required> 1</label>
+<label><input type="radio" name="q13" value="2" required> 2</label>
+<label><input type="radio" name="q13" value="3" required> 3</label>
+<label><input type="radio" name="q13" value="4" required> 4</label>
+<label><input type="radio" name="q13" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>14. Quando não atinjo meus padrões extremamente altos, me sinto um fracasso.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q14" value="1" required> 1</label>
+<label><input type="radio" name="q14" value="2" required> 2</label>
+<label><input type="radio" name="q14" value="3" required> 3</label>
+<label><input type="radio" name="q14" value="4" required> 4</label>
+<label><input type="radio" name="q14" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>15. Sinto que preciso provar meu valor constantemente.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q15" value="1" required> 1</label>
+<label><input type="radio" name="q15" value="2" required> 2</label>
+<label><input type="radio" name="q15" value="3" required> 3</label>
+<label><input type="radio" name="q15" value="4" required> 4</label>
+<label><input type="radio" name="q15" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>16. Tenho medo de que um único erro arruíne minha reputação.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q16" value="1" required> 1</label>
+<label><input type="radio" name="q16" value="2" required> 2</label>
+<label><input type="radio" name="q16" value="3" required> 3</label>
+<label><input type="radio" name="q16" value="4" required> 4</label>
+<label><input type="radio" name="q16" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>17. Evito desafios novos por medo de não ser capaz de lidar com eles.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q17" value="1" required> 1</label>
+<label><input type="radio" name="q17" value="2" required> 2</label>
+<label><input type="radio" name="q17" value="3" required> 3</label>
+<label><input type="radio" name="q17" value="4" required> 4</label>
+<label><input type="radio" name="q17" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>18. Passo muito mais tempo revisando meu trabalho do que o necessário.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q18" value="1" required> 1</label>
+<label><input type="radio" name="q18" value="2" required> 2</label>
+<label><input type="radio" name="q18" value="3" required> 3</label>
+<label><input type="radio" name="q18" value="4" required> 4</label>
+<label><input type="radio" name="q18" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>19. Sinto que, se não for perfeito, serei desmascarado.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q19" value="1" required> 1</label>
+<label><input type="radio" name="q19" value="2" required> 2</label>
+<label><input type="radio" name="q19" value="3" required> 3</label>
+<label><input type="radio" name="q19" value="4" required> 4</label>
+<label><input type="radio" name="q19" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>20. Quando algo dá certo, penso: 'Dessa vez deu sorte, mas e a próxima?'</p>
+<div class="likert-scale">
+<label><input type="radio" name="q20" value="1" required> 1</label>
+<label><input type="radio" name="q20" value="2" required> 2</label>
+<label><input type="radio" name="q20" value="3" required> 3</label>
+<label><input type="radio" name="q20" value="4" required> 4</label>
+<label><input type="radio" name="q20" value="5" required> 5</label>
+</div></div>
+</div>
+<div class="page" data-page="3">
+<h2>3. Atribuição Externa de Sucesso</h2>
+<div class="question"><p>21. Quando tenho sucesso, acredito que foi por ajuda externa, não por minha capacidade.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q21" value="1" required> 1</label>
+<label><input type="radio" name="q21" value="2" required> 2</label>
+<label><input type="radio" name="q21" value="3" required> 3</label>
+<label><input type="radio" name="q21" value="4" required> 4</label>
+<label><input type="radio" name="q21" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>22. Se recebo uma promoção, penso que foi por falta de opções melhores.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q22" value="1" required> 1</label>
+<label><input type="radio" name="q22" value="2" required> 2</label>
+<label><input type="radio" name="q22" value="3" required> 3</label>
+<label><input type="radio" name="q22" value="4" required> 4</label>
+<label><input type="radio" name="q22" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>23. Quando algo bom acontece, desconfio que foi um acidente.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q23" value="1" required> 1</label>
+<label><input type="radio" name="q23" value="2" required> 2</label>
+<label><input type="radio" name="q23" value="3" required> 3</label>
+<label><input type="radio" name="q23" value="4" required> 4</label>
+<label><input type="radio" name="q23" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>24. Se alguém me parabeniza, acho que estão sendo simpáticos, não honestos.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q24" value="1" required> 1</label>
+<label><input type="radio" name="q24" value="2" required> 2</label>
+<label><input type="radio" name="q24" value="3" required> 3</label>
+<label><input type="radio" name="q24" value="4" required> 4</label>
+<label><input type="radio" name="q24" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>25. Acredito que meu sucesso é temporário e logo vão descobrir que não mereço.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q25" value="1" required> 1</label>
+<label><input type="radio" name="q25" value="2" required> 2</label>
+<label><input type="radio" name="q25" value="3" required> 3</label>
+<label><input type="radio" name="q25" value="4" required> 4</label>
+<label><input type="radio" name="q25" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>26. Se consigo algo, penso: 'Foi fácil, qualquer um faria'.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q26" value="1" required> 1</label>
+<label><input type="radio" name="q26" value="2" required> 2</label>
+<label><input type="radio" name="q26" value="3" required> 3</label>
+<label><input type="radio" name="q26" value="4" required> 4</label>
+<label><input type="radio" name="q26" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>27. Quando sou bem-sucedido, sinto que enganei as pessoas.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q27" value="1" required> 1</label>
+<label><input type="radio" name="q27" value="2" required> 2</label>
+<label><input type="radio" name="q27" value="3" required> 3</label>
+<label><input type="radio" name="q27" value="4" required> 4</label>
+<label><input type="radio" name="q27" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>28. Descarto conquistas como 'nada demais' mesmo quando são significativas.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q28" value="1" required> 1</label>
+<label><input type="radio" name="q28" value="2" required> 2</label>
+<label><input type="radio" name="q28" value="3" required> 3</label>
+<label><input type="radio" name="q28" value="4" required> 4</label>
+<label><input type="radio" name="q28" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>29. Se alguém me elogia, penso que exageraram.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q29" value="1" required> 1</label>
+<label><input type="radio" name="q29" value="2" required> 2</label>
+<label><input type="radio" name="q29" value="3" required> 3</label>
+<label><input type="radio" name="q29" value="4" required> 4</label>
+<label><input type="radio" name="q29" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>30. Acho que meu sucesso veio de circunstâncias favoráveis, não de mérito.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q30" value="1" required> 1</label>
+<label><input type="radio" name="q30" value="2" required> 2</label>
+<label><input type="radio" name="q30" value="3" required> 3</label>
+<label><input type="radio" name="q30" value="4" required> 4</label>
+<label><input type="radio" name="q30" value="5" required> 5</label>
+</div></div>
+</div>
+<div class="page" data-page="4">
+<h2>4. Exaustão Emocional</h2>
+<div class="question"><p>31. Sinto-me emocionalmente esgotado(a) no trabalho/faculdade.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q31" value="1" required> 1</label>
+<label><input type="radio" name="q31" value="2" required> 2</label>
+<label><input type="radio" name="q31" value="3" required> 3</label>
+<label><input type="radio" name="q31" value="4" required> 4</label>
+<label><input type="radio" name="q31" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>32. Acordo já cansado(a), mesmo depois de dormir o suficiente.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q32" value="1" required> 1</label>
+<label><input type="radio" name="q32" value="2" required> 2</label>
+<label><input type="radio" name="q32" value="3" required> 3</label>
+<label><input type="radio" name="q32" value="4" required> 4</label>
+<label><input type="radio" name="q32" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>33. Tenho dificuldade em relaxar, mesmo nos momentos de descanso.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q33" value="1" required> 1</label>
+<label><input type="radio" name="q33" value="2" required> 2</label>
+<label><input type="radio" name="q33" value="3" required> 3</label>
+<label><input type="radio" name="q33" value="4" required> 4</label>
+<label><input type="radio" name="q33" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>34. Sinto que estou no meu limite físico e mental.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q34" value="1" required> 1</label>
+<label><input type="radio" name="q34" value="2" required> 2</label>
+<label><input type="radio" name="q34" value="3" required> 3</label>
+<label><input type="radio" name="q34" value="4" required> 4</label>
+<label><input type="radio" name="q34" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>35. Trabalhar tornou-se uma fonte de estresse constante.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q35" value="1" required> 1</label>
+<label><input type="radio" name="q35" value="2" required> 2</label>
+<label><input type="radio" name="q35" value="3" required> 3</label>
+<label><input type="radio" name="q35" value="4" required> 4</label>
+<label><input type="radio" name="q35" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>36. Tenho crises de ansiedade ou irritabilidade relacionadas ao trabalho/estudos.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q36" value="1" required> 1</label>
+<label><input type="radio" name="q36" value="2" required> 2</label>
+<label><input type="radio" name="q36" value="3" required> 3</label>
+<label><input type="radio" name="q36" value="4" required> 4</label>
+<label><input type="radio" name="q36" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>37. Sinto que não tenho energia para atividades que antes gostava.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q37" value="1" required> 1</label>
+<label><input type="radio" name="q37" value="2" required> 2</label>
+<label><input type="radio" name="q37" value="3" required> 3</label>
+<label><input type="radio" name="q37" value="4" required> 4</label>
+<label><input type="radio" name="q37" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>38. Meu rendimento caiu porque estou sempre fatigado(a).</p>
+<div class="likert-scale">
+<label><input type="radio" name="q38" value="1" required> 1</label>
+<label><input type="radio" name="q38" value="2" required> 2</label>
+<label><input type="radio" name="q38" value="3" required> 3</label>
+<label><input type="radio" name="q38" value="4" required> 4</label>
+<label><input type="radio" name="q38" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>39. Tenho dores de cabeça, musculares ou problemas digestivos devido ao estresse.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q39" value="1" required> 1</label>
+<label><input type="radio" name="q39" value="2" required> 2</label>
+<label><input type="radio" name="q39" value="3" required> 3</label>
+<label><input type="radio" name="q39" value="4" required> 4</label>
+<label><input type="radio" name="q39" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>40. Sinto que estou 'queimado(a)' e sem motivação.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q40" value="1" required> 1</label>
+<label><input type="radio" name="q40" value="2" required> 2</label>
+<label><input type="radio" name="q40" value="3" required> 3</label>
+<label><input type="radio" name="q40" value="4" required> 4</label>
+<label><input type="radio" name="q40" value="5" required> 5</label>
+</div></div>
+</div>
+<div class="page" data-page="5">
+<h2>5. Despersonalização e Cinismo</h2>
+<div class="question"><p>41. Trato colegas/clientes de forma mais impessoal e fria do que antes.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q41" value="1" required> 1</label>
+<label><input type="radio" name="q41" value="2" required> 2</label>
+<label><input type="radio" name="q41" value="3" required> 3</label>
+<label><input type="radio" name="q41" value="4" required> 4</label>
+<label><input type="radio" name="q41" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>42. Sinto-me distante emocionalmente do meu trabalho/estudos.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q42" value="1" required> 1</label>
+<label><input type="radio" name="q42" value="2" required> 2</label>
+<label><input type="radio" name="q42" value="3" required> 3</label>
+<label><input type="radio" name="q42" value="4" required> 4</label>
+<label><input type="radio" name="q42" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>43. Tenho atitudes negativas ou cínicas em relação às minhas responsabilidades.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q43" value="1" required> 1</label>
+<label><input type="radio" name="q43" value="2" required> 2</label>
+<label><input type="radio" name="q43" value="3" required> 3</label>
+<label><input type="radio" name="q43" value="4" required> 4</label>
+<label><input type="radio" name="q43" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>44. Ignoro problemas no trabalho porque já não me importo o suficiente.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q44" value="1" required> 1</label>
+<label><input type="radio" name="q44" value="2" required> 2</label>
+<label><input type="radio" name="q44" value="3" required> 3</label>
+<label><input type="radio" name="q44" value="4" required> 4</label>
+<label><input type="radio" name="q44" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>45. Evito interações sociais relacionadas ao trabalho/estudos.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q45" value="1" required> 1</label>
+<label><input type="radio" name="q45" value="2" required> 2</label>
+<label><input type="radio" name="q45" value="3" required> 3</label>
+<label><input type="radio" name="q45" value="4" required> 4</label>
+<label><input type="radio" name="q45" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>46. Sinto que estou apenas 'cumprindo tabela' sem real envolvimento.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q46" value="1" required> 1</label>
+<label><input type="radio" name="q46" value="2" required> 2</label>
+<label><input type="radio" name="q46" value="3" required> 3</label>
+<label><input type="radio" name="q46" value="4" required> 4</label>
+<label><input type="radio" name="q46" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>47. Critico constantemente meu ambiente de trabalho/estudo, mas não faço nada para mudar.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q47" value="1" required> 1</label>
+<label><input type="radio" name="q47" value="2" required> 2</label>
+<label><input type="radio" name="q47" value="3" required> 3</label>
+<label><input type="radio" name="q47" value="4" required> 4</label>
+<label><input type="radio" name="q47" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>48. Tenho dificuldade em sentir empatia por colegas ou clientes.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q48" value="1" required> 1</label>
+<label><input type="radio" name="q48" value="2" required> 2</label>
+<label><input type="radio" name="q48" value="3" required> 3</label>
+<label><input type="radio" name="q48" value="4" required> 4</label>
+<label><input type="radio" name="q48" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>49. Sinto que meu trabalho não tem significado real.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q49" value="1" required> 1</label>
+<label><input type="radio" name="q49" value="2" required> 2</label>
+<label><input type="radio" name="q49" value="3" required> 3</label>
+<label><input type="radio" name="q49" value="4" required> 4</label>
+<label><input type="radio" name="q49" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>50. Prefiro isolar-me a lidar com demandas sociais no trabalho/faculdade.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q50" value="1" required> 1</label>
+<label><input type="radio" name="q50" value="2" required> 2</label>
+<label><input type="radio" name="q50" value="3" required> 3</label>
+<label><input type="radio" name="q50" value="4" required> 4</label>
+<label><input type="radio" name="q50" value="5" required> 5</label>
+</div></div>
+</div>
+<div class="page" data-page="6">
+<h2>6. Redução da Realização Pessoal</h2>
+<div class="question"><p>51. Sinto que não estou alcançando nada significativo.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q51" value="1" required> 1</label>
+<label><input type="radio" name="q51" value="2" required> 2</label>
+<label><input type="radio" name="q51" value="3" required> 3</label>
+<label><input type="radio" name="q51" value="4" required> 4</label>
+<label><input type="radio" name="q51" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>52. Tenho dúvidas sobre minha competência, mesmo em áreas que domino.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q52" value="1" required> 1</label>
+<label><input type="radio" name="q52" value="2" required> 2</label>
+<label><input type="radio" name="q52" value="3" required> 3</label>
+<label><input type="radio" name="q52" value="4" required> 4</label>
+<label><input type="radio" name="q52" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>53. Não me orgulho mais do meu trabalho como antes.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q53" value="1" required> 1</label>
+<label><input type="radio" name="q53" value="2" required> 2</label>
+<label><input type="radio" name="q53" value="3" required> 3</label>
+<label><input type="radio" name="q53" value="4" required> 4</label>
+<label><input type="radio" name="q53" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>54. Sinto que não faço diferença, não importa o quanto me esforce.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q54" value="1" required> 1</label>
+<label><input type="radio" name="q54" value="2" required> 2</label>
+<label><input type="radio" name="q54" value="3" required> 3</label>
+<label><input type="radio" name="q54" value="4" required> 4</label>
+<label><input type="radio" name="q54" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>55. Comparo-me negativamente com colegas que parecem mais realizados.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q55" value="1" required> 1</label>
+<label><input type="radio" name="q55" value="2" required> 2</label>
+<label><input type="radio" name="q55" value="3" required> 3</label>
+<label><input type="radio" name="q55" value="4" required> 4</label>
+<label><input type="radio" name="q55" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>56. Tenho dificuldade em me motivar para tarefas que antes eram gratificantes.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q56" value="1" required> 1</label>
+<label><input type="radio" name="q56" value="2" required> 2</label>
+<label><input type="radio" name="q56" value="3" required> 3</label>
+<label><input type="radio" name="q56" value="4" required> 4</label>
+<label><input type="radio" name="q56" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>57. Sinto que estou falhando, mesmo quando completo minhas obrigações.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q57" value="1" required> 1</label>
+<label><input type="radio" name="q57" value="2" required> 2</label>
+<label><input type="radio" name="q57" value="3" required> 3</label>
+<label><input type="radio" name="q57" value="4" required> 4</label>
+<label><input type="radio" name="q57" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>58. Meus resultados parecem insuficientes, independentemente do esforço.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q58" value="1" required> 1</label>
+<label><input type="radio" name="q58" value="2" required> 2</label>
+<label><input type="radio" name="q58" value="3" required> 3</label>
+<label><input type="radio" name="q58" value="4" required> 4</label>
+<label><input type="radio" name="q58" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>59. Perdi a paixão pelo que faço.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q59" value="1" required> 1</label>
+<label><input type="radio" name="q59" value="2" required> 2</label>
+<label><input type="radio" name="q59" value="3" required> 3</label>
+<label><input type="radio" name="q59" value="4" required> 4</label>
+<label><input type="radio" name="q59" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>60. Questiono frequentemente se escolhi a carreira/curso certo.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q60" value="1" required> 1</label>
+<label><input type="radio" name="q60" value="2" required> 2</label>
+<label><input type="radio" name="q60" value="3" required> 3</label>
+<label><input type="radio" name="q60" value="4" required> 4</label>
+<label><input type="radio" name="q60" value="5" required> 5</label>
+</div></div>
+</div>
+<div class="page" data-page="7">
+<h2>7. Ansiedade Generalizada</h2>
+<div class="question"><p>61. Sinto-me nervoso(a) ou tenso(a) mesmo quando não há motivo aparente.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q61" value="1" required> 1</label>
+<label><input type="radio" name="q61" value="2" required> 2</label>
+<label><input type="radio" name="q61" value="3" required> 3</label>
+<label><input type="radio" name="q61" value="4" required> 4</label>
+<label><input type="radio" name="q61" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>62. Preocupo-me excessivamente com pequenos detalhes.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q62" value="1" required> 1</label>
+<label><input type="radio" name="q62" value="2" required> 2</label>
+<label><input type="radio" name="q62" value="3" required> 3</label>
+<label><input type="radio" name="q62" value="4" required> 4</label>
+<label><input type="radio" name="q62" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>63. Tenho dificuldade para controlar pensamentos catastróficos.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q63" value="1" required> 1</label>
+<label><input type="radio" name="q63" value="2" required> 2</label>
+<label><input type="radio" name="q63" value="3" required> 3</label>
+<label><input type="radio" name="q63" value="4" required> 4</label>
+<label><input type="radio" name="q63" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>64. Sinto palpitações ou sudorese em situações cotidianas.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q64" value="1" required> 1</label>
+<label><input type="radio" name="q64" value="2" required> 2</label>
+<label><input type="radio" name="q64" value="3" required> 3</label>
+<label><input type="radio" name="q64" value="4" required> 4</label>
+<label><input type="radio" name="q64" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>65. Evito situações novas por medo de não lidar bem com elas.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q65" value="1" required> 1</label>
+<label><input type="radio" name="q65" value="2" required> 2</label>
+<label><input type="radio" name="q65" value="3" required> 3</label>
+<label><input type="radio" name="q65" value="4" required> 4</label>
+<label><input type="radio" name="q65" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>66. Tenho insônia devido a preocupações constantes.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q66" value="1" required> 1</label>
+<label><input type="radio" name="q66" value="2" required> 2</label>
+<label><input type="radio" name="q66" value="3" required> 3</label>
+<label><input type="radio" name="q66" value="4" required> 4</label>
+<label><input type="radio" name="q66" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>67. Meu desempenho é afetado por pensamentos ansiosos.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q67" value="1" required> 1</label>
+<label><input type="radio" name="q67" value="2" required> 2</label>
+<label><input type="radio" name="q67" value="3" required> 3</label>
+<label><input type="radio" name="q67" value="4" required> 4</label>
+<label><input type="radio" name="q67" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>68. Sinto-me sobrecarregado(a) por antecipar problemas que podem nunca acontecer.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q68" value="1" required> 1</label>
+<label><input type="radio" name="q68" value="2" required> 2</label>
+<label><input type="radio" name="q68" value="3" required> 3</label>
+<label><input type="radio" name="q68" value="4" required> 4</label>
+<label><input type="radio" name="q68" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>69. Tenho medo de ser julgado(a) negativamente, mesmo em contextos informais.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q69" value="1" required> 1</label>
+<label><input type="radio" name="q69" value="2" required> 2</label>
+<label><input type="radio" name="q69" value="3" required> 3</label>
+<label><input type="radio" name="q69" value="4" required> 4</label>
+<label><input type="radio" name="q69" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>70. Quando estou sob pressão, sinto que vou 'travar' ou falhar.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q70" value="1" required> 1</label>
+<label><input type="radio" name="q70" value="2" required> 2</label>
+<label><input type="radio" name="q70" value="3" required> 3</label>
+<label><input type="radio" name="q70" value="4" required> 4</label>
+<label><input type="radio" name="q70" value="5" required> 5</label>
+</div></div>
+</div>
+<div class="page" data-page="8">
+<h2>8. Autoeficácia (invertida)</h2>
+<div class="question"><p>71. Tenho certeza de que posso lidar com desafios inesperados. (inverter)</p>
+<div class="likert-scale">
+<label><input type="radio" name="q71" value="1" required> 1</label>
+<label><input type="radio" name="q71" value="2" required> 2</label>
+<label><input type="radio" name="q71" value="3" required> 3</label>
+<label><input type="radio" name="q71" value="4" required> 4</label>
+<label><input type="radio" name="q71" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>72. Acredito que consigo alcançar metas difíceis com esforço. (inverter)</p>
+<div class="likert-scale">
+<label><input type="radio" name="q72" value="1" required> 1</label>
+<label><input type="radio" name="q72" value="2" required> 2</label>
+<label><input type="radio" name="q72" value="3" required> 3</label>
+<label><input type="radio" name="q72" value="4" required> 4</label>
+<label><input type="radio" name="q72" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>73. Mesmo em tarefas complexas, sinto que posso aprender e me adaptar. (inverter)</p>
+<div class="likert-scale">
+<label><input type="radio" name="q73" value="1" required> 1</label>
+<label><input type="radio" name="q73" value="2" required> 2</label>
+<label><input type="radio" name="q73" value="3" required> 3</label>
+<label><input type="radio" name="q73" value="4" required> 4</label>
+<label><input type="radio" name="q73" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>74. Desisto facilmente quando enfrento obstáculos.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q74" value="1" required> 1</label>
+<label><input type="radio" name="q74" value="2" required> 2</label>
+<label><input type="radio" name="q74" value="3" required> 3</label>
+<label><input type="radio" name="q74" value="4" required> 4</label>
+<label><input type="radio" name="q74" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>75. Duvido da minha capacidade de tomar decisões acertadas.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q75" value="1" required> 1</label>
+<label><input type="radio" name="q75" value="2" required> 2</label>
+<label><input type="radio" name="q75" value="3" required> 3</label>
+<label><input type="radio" name="q75" value="4" required> 4</label>
+<label><input type="radio" name="q75" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>76. Sinto que não tenho controle sobre os resultados do meu trabalho.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q76" value="1" required> 1</label>
+<label><input type="radio" name="q76" value="2" required> 2</label>
+<label><input type="radio" name="q76" value="3" required> 3</label>
+<label><input type="radio" name="q76" value="4" required> 4</label>
+<label><input type="radio" name="q76" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>77. Comparo-me negativamente com colegas mais confiantes.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q77" value="1" required> 1</label>
+<label><input type="radio" name="q77" value="2" required> 2</label>
+<label><input type="radio" name="q77" value="3" required> 3</label>
+<label><input type="radio" name="q77" value="4" required> 4</label>
+<label><input type="radio" name="q77" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>78. Evito assumir responsabilidades por medo de não dar conta.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q78" value="1" required> 1</label>
+<label><input type="radio" name="q78" value="2" required> 2</label>
+<label><input type="radio" name="q78" value="3" required> 3</label>
+<label><input type="radio" name="q78" value="4" required> 4</label>
+<label><input type="radio" name="q78" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>79. Quando algo dá errado, culpo minha falta de habilidade.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q79" value="1" required> 1</label>
+<label><input type="radio" name="q79" value="2" required> 2</label>
+<label><input type="radio" name="q79" value="3" required> 3</label>
+<label><input type="radio" name="q79" value="4" required> 4</label>
+<label><input type="radio" name="q79" value="5" required> 5</label>
+</div></div>
+<div class="question"><p>80. Preciso de validação externa para acreditar que fiz um bom trabalho.</p>
+<div class="likert-scale">
+<label><input type="radio" name="q80" value="1" required> 1</label>
+<label><input type="radio" name="q80" value="2" required> 2</label>
+<label><input type="radio" name="q80" value="3" required> 3</label>
+<label><input type="radio" name="q80" value="4" required> 4</label>
+<label><input type="radio" name="q80" value="5" required> 5</label>
+</div></div>
+</div>
+
+<div class="navigation">
+  <button type="button" onclick="changePage(-1)" id="prevBtn" style="display:none;">Anterior</button>
+  <button type="button" onclick="changePage(1)" id="nextBtn">Próximo</button>
+  <button type="submit" id="submitBtn" style="display:none;">Enviar Respostas</button>
+</div>
+</form>
+<div id="results" style="display:none; background:#fff; padding:20px; margin-top:20px; border-radius:8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+  <h2>Seus Resultados</h2>
+  <canvas id="resultsChart" height="300"></canvas>
+  <button id="downloadPdf" style="margin-top:20px;">Baixar Relatório em PDF</button>
+</div>
+<script>
+let currentPage = 1;
+const totalPages = 8;
+function changePage(step) {
+  document.querySelector(`[data-page="${currentPage}"]`).classList.remove("active");
+  currentPage += step;
+  document.querySelector(`[data-page="${currentPage}"]`).classList.add("active");
+  document.getElementById('prevBtn').style.display = currentPage === 1 ? "none" : "inline-block";
+  document.getElementById('nextBtn').style.display = currentPage === totalPages ? "none" : "inline-block";
+  document.getElementById('submitBtn').style.display = currentPage === totalPages ? "inline-block" : "none";
+}
+function updateProgress() {
+  const total = 80;
+  const answered = document.querySelectorAll('input[type="radio"]:checked').length;
+  document.getElementById('progressBar').style.width = (answered / total * 100) + "%";
+}
+document.querySelectorAll('input[type="radio"]').forEach(input => input.addEventListener('change', updateProgress));
+
+document.getElementById("surveyForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  const respostas = {}, scores = {}, labels = [], data = [];
+  const dimensoes = [
+    "Autodúvida e Insegurança", "Medo do Fracasso e Perfeccionismo",
+    "Atribuição Externa de Sucesso", "Exaustão Emocional",
+    "Despersonalização e Cinismo", "Redução da Realização Pessoal",
+    "Ansiedade Generalizada", "Autoeficácia (invertida)"
+  ];
+  for (let [key, value] of formData.entries()) {
+    if (key.startsWith("q")) respostas[key] = parseInt(value);
+  }
+  for (let i = 0; i < 8; i++) {
+    let soma = 0;
+    for (let j = 1; j <= 10; j++) {
+      let num = i * 10 + j;
+      let val = respostas["q" + num] || 3;
+      if (i === 7) val = 6 - val;
+      soma += val;
+    }
+    let media = soma / 10;
+    scores[dimensoes[i]] = media.toFixed(2);
+    labels.push(dimensoes[i]);
+    data.push(media);
+  }
+  renderChart(labels, data);
+  sendToFormspree(scores);
+  document.getElementById('results').style.display = "block";
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+});
+
+function renderChart(labels, data) {
+  const ctx = document.getElementById('resultsChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{ label: 'Média', data: data, backgroundColor: '#3498db' }]
+    },
+    options: { responsive: true, scales: { y: { beginAtZero: true, max: 5 } } }
+  });
+}
+
+function sendToFormspree(scores) {
+  const formData = new FormData();
+  for (let key in scores) formData.append(key, scores[key]);
+  fetch("https://formspree.io/f/xyzjjeez", {
+    method: "POST",
+    body: formData,
+    headers: { 'Accept': 'application/json' }
+  });
+}
+
+document.getElementById("downloadPdf").addEventListener("click", async function() {
+  const chart = document.getElementById('resultsChart');
+  const canvas = await html2canvas(chart);
+  const imgData = canvas.toDataURL("image/png");
+  const pdf = new jspdf.jsPDF();
+  pdf.setFontSize(18);
+  pdf.text("Relatório - Avaliação Psicológica", 20, 20);
+  pdf.addImage(imgData, 'PNG', 15, 30, 180, 80);
+  pdf.save("relatorio_avaliacao.pdf");
+});
+</script>
+</body>
+</html>
